@@ -1,0 +1,3 @@
+[submodule "external/UnifiedEmail"]
+	path = external/UnifiedEmail
+	url = https://android.googlesource.com/platform/packages/apps/UnifiedEmail
