@@ -1,0 +1,113 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 24
+    }
+
+    useLibrary 'org.apache.http.legacy'
+
+    sourceSets {
+        //unified_email_dir := ../UnifiedEmail
+
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            //LOCAL_SRC_FILES := $(call all-java-files-under, $(unified_email_dir)/src)
+            //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/android)
+            //LOCAL_SRC_FILES += $(call all-java-files-under, provider_src/com/android)
+            //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/beetstra)
+            java.srcDirs = ['src', 'external/UnifiedEmail/src', 'provider_src']
+            //res_dir := res $(unified_email_dir)/res
+            //LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
+            resources.srcDirs = ['res', 'external/UnifiedEmail/res']
+            //# Use assets dir from UnifiedEmail
+            //# (the default package target doesn't seem to deal with multiple asset dirs)
+            //LOCAL_ASSET_DIR := $(LOCAL_PATH)/$(unified_email_dir)/assets
+            assets.srcDirs = ['assets', 'external/UnifiedEmail/assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        androidTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+
+    }
+}
+
+
+//LOCAL_USE_AAPT2 := true
+//
+//
+//LOCAL_AAPT_FLAGS := --auto-add-overlay
+//LOCAL_AAPT_FLAGS += --extra-packages com.android.mail:com.android.email:com.android.emailcommon
+//
+//LOCAL_STATIC_ANDROID_LIBRARIES := \
+//    com.android.emailcommon \
+//    libchips \
+//    libphotoviewer_appcompat \
+//    android-opt-bitmap \
+//    android-opt-datetimepicker \
+//    android-support-compat \
+//    android-support-media-compat \
+//    android-support-core-utils \
+//    android-support-core-ui \
+//    android-support-fragment \
+//    android-support-v7-appcompat \
+//    android-support-v7-gridlayout \
+//    android-support-v13
+//
+//LOCAL_STATIC_JAVA_LIBRARIES := \
+//    android-support-annotations \
+//    android-common \
+//    guava \
+//    owasp-html-sanitizer
+//
+//LOCAL_JAVA_LIBRARIES := org.apache.http.legacy
+//
+//LOCAL_PACKAGE_NAME := Email
+//
+//        LOCAL_PRODUCT_MODULE := true
+//
+//LOCAL_PROGUARD_FLAG_FILES := proguard.flags $(unified_email_dir)/proguard.flags
+//ifeq (eng,$(TARGET_BUILD_VARIANT))
+//LOCAL_PROGUARD_FLAG_FILES += proguard-test.flags
+//endif
+//
+//LOCAL_SDK_VERSION := current
+//
+//include $(BUILD_PACKAGE)
+//
+//# only include rules to build other stuff for the original package, not the derived package.
+//ifeq ($(strip $(LOCAL_PACKAGE_OVERRIDES)),)
+//# additionally, build unit tests in a separate .apk
+//include $(call all-makefiles-under,$(LOCAL_PATH))
+//endif
