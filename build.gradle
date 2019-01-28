@@ -30,18 +30,21 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     sourceSets {
-        //unified_email_dir := ../UnifiedEmail
 
         main {
             manifest.srcFile 'AndroidManifest.xml'
+
+            //unified_email_dir := ../UnifiedEmail
             //LOCAL_SRC_FILES := $(call all-java-files-under, $(unified_email_dir)/src)
             //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/android)
             //LOCAL_SRC_FILES += $(call all-java-files-under, provider_src/com/android)
             //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/beetstra)
             java.srcDirs = ['src', 'external/UnifiedEmail/src', 'provider_src']
+
             //res_dir := res $(unified_email_dir)/res
             //LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
-            resources.srcDirs = ['res', 'external/UnifiedEmail/res']
+            res.srcDirs = ['res', 'external/UnifiedEmail/res']
+
             //# Use assets dir from UnifiedEmail
             //# (the default package target doesn't seem to deal with multiple asset dirs)
             //LOCAL_ASSET_DIR := $(LOCAL_PATH)/$(unified_email_dir)/assets
@@ -59,16 +62,18 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
-
     }
+
+    // Uncomment these if it looks like they're needed
+//    aaptOptions {
+//        //LOCAL_USE_AAPT2 := true
+//        //LOCAL_AAPT_FLAGS := --auto-add-overlay
+//        //LOCAL_AAPT_FLAGS += --extra-packages com.android.mail:com.android.email:com.android.emailcommon
+//        additionalParameters = ['--auto-add-overlay', '--extra-packages', 'com.android.mail:com.android.email:com.android.emailcommon']
+//    }
 }
 
 
-//LOCAL_USE_AAPT2 := true
-//
-//
-//LOCAL_AAPT_FLAGS := --auto-add-overlay
-//LOCAL_AAPT_FLAGS += --extra-packages com.android.mail:com.android.email:com.android.emailcommon
 //
 //LOCAL_STATIC_ANDROID_LIBRARIES := \
 //    com.android.emailcommon \
