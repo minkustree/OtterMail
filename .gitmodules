@@ -1,3 +1,15 @@
 [submodule "external/UnifiedEmail"]
 	path = external/UnifiedEmail
 	url = https://android.googlesource.com/platform/packages/apps/UnifiedEmail
+[submodule "external/chips"]
+	path = external/chips
+	url = https://android.googlesource.com/platform/frameworks/opt/chips
+[submodule "external/photoviewer"]
+	path = external/photoviewer
+	url = https://android.googlesource.com/platform/frameworks/opt/photoviewer
+[submodule "external/bitmap"]
+	path = external/bitmap
+	url = https://android.googlesource.com/platform/frameworks/opt/bitmap
+[submodule "external/ex"]
+	path = external/ex
+	url = https://android.googlesource.com/platform/frameworks/ex

@@ -1,0 +1,6 @@
+include ':external:chips'
+include ':external:photoviewer'
+include ':external:bitmap'
+include ':external:ex:common'
+include ':external:UnifiedEmail'
+include ':emailcommon'
