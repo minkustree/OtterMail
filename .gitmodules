@@ -9,7 +9,8 @@
 	url = https://android.googlesource.com/platform/frameworks/opt/photoviewer
 [submodule "external/bitmap"]
 	path = external/bitmap
-	url = https://android.googlesource.com/platform/frameworks/opt/bitmap
+	url = https://github.com/minkustree/platform_frameworks_opt_bitmap.git
+	branch = ottermail
 [submodule "external/ex"]
 	path = external/ex
 	url = https://android.googlesource.com/platform/frameworks/ex
