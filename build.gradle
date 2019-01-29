@@ -18,36 +18,57 @@ allprojects {
 
 apply plugin: 'com.android.application'
 
+dependencies {
+    //LOCAL_STATIC_ANDROID_LIBRARIES := \
+    //    com.android.emailcommon \
+    //    libchips \
+    //    libphotoviewer_appcompat \
+    //    android-opt-bitmap \
+    //    android-opt-datetimepicker \
+    //    android-support-compat \
+    //    android-support-media-compat \
+    //    android-support-core-utils \
+    //    android-support-core-ui \
+    //    android-support-fragment \
+    //    android-support-v7-appcompat \
+    //    android-support-v7-gridlayout \
+    //    android-support-v13
+    implementation project(':emailcommon')
+    implementation project(':external:UnifiedEmail') // crafted to exclude src included in emailcommon
+    implementation project(':external:chips')
+    implementation project(':external:photoviewer')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v13:28.0.0'
+
+    //LOCAL_STATIC_JAVA_LIBRARIES := \
+    //    android-support-annotations \
+    //    android-common \
+    //    guava \
+    //    owasp-html-sanitizer
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation project(':external:ex:common')
+    implementation 'com.google.guava:guava:27.0.1-java'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20181114.1'
+}
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 22 // any higher and we crash due to not having contacts permission
     }
 
+    // LOCAL_JAVA_LIBRARIES := org.apache.http.legacy
     useLibrary 'org.apache.http.legacy'
 
     sourceSets {
 
         main {
             manifest.srcFile 'AndroidManifest.xml'
-
-            //unified_email_dir := ../UnifiedEmail
-            //LOCAL_SRC_FILES := $(call all-java-files-under, $(unified_email_dir)/src)
-            //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/android)
-            //LOCAL_SRC_FILES += $(call all-java-files-under, provider_src/com/android)
-            //LOCAL_SRC_FILES += $(call all-java-files-under, src/com/beetstra)
-            java.srcDirs = ['src', 'external/UnifiedEmail/src', 'provider_src']
-
-            //res_dir := res $(unified_email_dir)/res
-            //LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
-            res.srcDirs = ['res', 'external/UnifiedEmail/res']
-
-            //# Use assets dir from UnifiedEmail
-            //# (the default package target doesn't seem to deal with multiple asset dirs)
-            //LOCAL_ASSET_DIR := $(LOCAL_PATH)/$(unified_email_dir)/assets
+            java.srcDirs = ['src', 'provider_src']// src from UnifiedEmail included via dependency
+            res.srcDirs = ['res'] // res from UnifiedEmail included via dependency to enable local override of collisions
             assets.srcDirs = ['assets', 'external/UnifiedEmail/assets']
         }
 
@@ -64,55 +85,10 @@ android {
         release.setRoot('build-types/release')
     }
 
-    // Uncomment these if it looks like they're needed
-//    aaptOptions {
-//        //LOCAL_USE_AAPT2 := true
-//        //LOCAL_AAPT_FLAGS := --auto-add-overlay
-//        //LOCAL_AAPT_FLAGS += --extra-packages com.android.mail:com.android.email:com.android.emailcommon
-//        additionalParameters = ['--auto-add-overlay', '--extra-packages', 'com.android.mail:com.android.email:com.android.emailcommon']
-//    }
+    aaptOptions {
+        //LOCAL_AAPT_FLAGS := --auto-add-overlay
+        //LOCAL_AAPT_FLAGS += --extra-packages com.android.mail:com.android.email:com.android.emailcommon
+        additionalParameters = ['--auto-add-overlay',
+                                '--extra-packages', 'com.android.mail:com.android.email:com.android.emailcommon']
+    }
 }
-
-
-//
-//LOCAL_STATIC_ANDROID_LIBRARIES := \
-//    com.android.emailcommon \
-//    libchips \
-//    libphotoviewer_appcompat \
-//    android-opt-bitmap \
-//    android-opt-datetimepicker \
-//    android-support-compat \
-//    android-support-media-compat \
-//    android-support-core-utils \
-//    android-support-core-ui \
-//    android-support-fragment \
-//    android-support-v7-appcompat \
-//    android-support-v7-gridlayout \
-//    android-support-v13
-//
-//LOCAL_STATIC_JAVA_LIBRARIES := \
-//    android-support-annotations \
-//    android-common \
-//    guava \
-//    owasp-html-sanitizer
-//
-//LOCAL_JAVA_LIBRARIES := org.apache.http.legacy
-//
-//LOCAL_PACKAGE_NAME := Email
-//
-//        LOCAL_PRODUCT_MODULE := true
-//
-//LOCAL_PROGUARD_FLAG_FILES := proguard.flags $(unified_email_dir)/proguard.flags
-//ifeq (eng,$(TARGET_BUILD_VARIANT))
-//LOCAL_PROGUARD_FLAG_FILES += proguard-test.flags
-//endif
-//
-//LOCAL_SDK_VERSION := current
-//
-//include $(BUILD_PACKAGE)
-//
-//# only include rules to build other stuff for the original package, not the derived package.
-//ifeq ($(strip $(LOCAL_PACKAGE_OVERRIDES)),)
-//# additionally, build unit tests in a separate .apk
-//include $(call all-makefiles-under,$(LOCAL_PATH))
-//endif
