@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.android.emailcommon"
           android:versionCode="1">
-    <!--
+    <!-- Handled in gradle.build now. Keep here for easier merge conflict resolution.
     <uses-sdk android:targetSdkVersion="24" android:minSdkVersion="14" />
     -->
 </manifest>

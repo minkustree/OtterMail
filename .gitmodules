@@ -1,16 +1,20 @@
 [submodule "external/UnifiedEmail"]
 	path = external/UnifiedEmail
-	url = https://android.googlesource.com/platform/packages/apps/UnifiedEmail
+	url = https://github.com/minkustree/platform_packages_apps_UnifiedEmail.git
+	branch = ottermail
 [submodule "external/chips"]
 	path = external/chips
-	url = https://android.googlesource.com/platform/frameworks/opt/chips
+	url = https://github.com/minkustree/platform_frameworks_opt_chips.git
+	branch = ottermail
 [submodule "external/photoviewer"]
 	path = external/photoviewer
-	url = https://android.googlesource.com/platform/frameworks/opt/photoviewer
+	url = https://github.com/minkustree/platform_frameworks_opt_photoviewer.git
+	branch = ottermail
 [submodule "external/bitmap"]
 	path = external/bitmap
 	url = https://github.com/minkustree/platform_frameworks_opt_bitmap.git
 	branch = ottermail
 [submodule "external/ex"]
 	path = external/ex
-	url = https://android.googlesource.com/platform/frameworks/ex
+	url = https://github.com/minkustree/platform_frameworks_ex.git
+	branch = ottermail
