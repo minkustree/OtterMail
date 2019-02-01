@@ -12,19 +12,16 @@ android {
     sourceSets.main {
         manifest.srcFile 'AndroidManifest.xml'
 
-        java.srcDirs = [ 'src', // LOCAL_SRC_FILES := $(call all-java-files-under, src/com/android/emailcommon)
-            '../external/UnifiedEmail/src/org', // LOCAL_SRC_FILES += $(call all-java-files-under, $(apache_src_dir))
-            '../external/UnifiedEmail/src/com/android/mail/utils/LogTag.java', // LOCAL_SRC_FILES += $(imported_unified_email_files)/**/LogTag.java
-            '../external/UnifiedEmail/src/com/android/mail/utils/LogUtils.java', // /**/LogUtils.java
-            '../external/UnifiedEmail/src/com/android/mail/providers/UIProvider.java',  // /**/UIProvider.java
-            '../external/UnifiedEmail/src/com/android/emailcommon' // LOCAL_SRC_FILES += $(call all-java-files-under, $(unified_email_src_dir)/com/android/emailcommon)
-        ]
+        // Rather than include source from UnifiedEmail like in Android.mk,
+        // just depend on a plain compile of that project
+        java.srcDirs = ['src']
         aidl.srcDirs = ['src'] // use 'src' rather than 'src/com/android etc to find Parcelable placeholders
         res.srcDirs = ['res']
     }
 }
 
 dependencies {
+    implementation project(':external:UnifiedEmail')
     implementation 'com.google.guava:guava:27.0.1-android'
     implementation project(':external:ex:common')
     implementation 'com.android.support:support-annotations:28.0.0'
