@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.android.email.R;
 import com.android.emailcommon.TempDirectory;
@@ -102,6 +103,7 @@ public class PopImapSyncAdapterService extends Service {
     private static void sync(final Context context, final long mailboxId,
             final Bundle extras, final SyncResult syncResult, final boolean uiRefresh,
             final int deltaMessageCount) {
+        Log.d(TAG, "OTTER Adapter.sync() called");
         TempDirectory.setTempDirectory(context);
         Mailbox mailbox = Mailbox.restoreMailboxWithId(context, mailboxId);
         if (mailbox == null) return;
@@ -117,7 +119,7 @@ public class PopImapSyncAdapterService extends Service {
                     new String[] {Long.toString(mailbox.mId)});
             return;
         }
-        LogUtils.d(TAG, "About to sync mailbox: " + mailbox.mDisplayName);
+        Log.d(TAG, "About to sync mailbox: " + mailbox.mDisplayName);
 
         Uri mailboxUri = ContentUris.withAppendedId(Mailbox.CONTENT_URI, mailboxId);
         ContentValues values = new ContentValues();
@@ -193,6 +195,7 @@ public class PopImapSyncAdapterService extends Service {
      */
     private static void performSync(Context context, android.accounts.Account account,
             Bundle extras, ContentProviderClient provider, SyncResult syncResult) {
+        Log.i(TAG, "OTTER Perform sync called");
         // Find an EmailProvider account with the Account's email address
         Cursor c = null;
         try {
@@ -263,11 +266,13 @@ public class PopImapSyncAdapterService extends Service {
                 }
             }
         } catch (Exception e) {
+            Log.e(TAG, "OTTER Error during sync", e);
             e.printStackTrace();
         } finally {
             if (c != null) {
                 c.close();
             }
+            Log.i(TAG, "OTTER Perform sync ended");
         }
     }
 }

@@ -1,0 +1,2 @@
+generic_x86:/ $ setprop log.tag.PopImapSyncService VERBOSE
+generic_x86:/ $ setprop log.tag.SyncAdapter VERBOSE
